@@ -1,0 +1,12 @@
+{
+  "name": "wdio-course-practice",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/local-runner": "^8.33.0",
+    "@wdio/mocha-framework": "^8.33.0",
+    "@wdio/spec-reporter": "^8.32.4"
+  },
+  "scripts": {
+    "wdio": "wdio run ./wdio.conf.js"
+  }
+}
