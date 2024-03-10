@@ -1,0 +1,3 @@
+{
+  "text": "/Users/aleccham/Desktop/FSD03/practice/wdio-course-practice/test/data/home.png"
+}

@@ -1,0 +1,44 @@
+{
+  "id": {
+    "sessionId": "4881fbff080039ecc833225e7f3b9333",
+    "elementId": "f.87B58EA996902EC24A2D4E95E9B7816A.d.1DFF484B66B1553274B07B99CF6369B0.e.5",
+    "element-6066-11e4-a52e-4f735466cecf": "f.87B58EA996902EC24A2D4E95E9B7816A.d.1DFF484B66B1553274B07B99CF6369B0.e.5",
+    "selector": "#advanced_iframe",
+    "parent": {
+      "sessionId": "4881fbff080039ecc833225e7f3b9333",
+      "capabilities": {
+        "acceptInsecureCerts": false,
+        "browserName": "chrome",
+        "browserVersion": "122.0.6261.112",
+        "chrome": {
+          "chromedriverVersion": "122.0.6261.111 (9d4c1072da62b411b351a38b9ed6214ab236aa7b-refs/branch-heads/6261@{#1015})",
+          "userDataDir": "/var/folders/nh/swq47w654sl7jb6b8z4_5kfm0000gn/T/.org.chromium.Chromium.kJaF7A"
+        },
+        "fedcm:accounts": true,
+        "goog:chromeOptions": {
+          "debuggerAddress": "localhost:59934"
+        },
+        "networkConnectionEnabled": false,
+        "pageLoadStrategy": "normal",
+        "platformName": "mac",
+        "proxy": {},
+        "setWindowRect": true,
+        "strictFileInteractability": false,
+        "timeouts": {
+          "implicit": 0,
+          "pageLoad": 300000,
+          "script": 30000
+        },
+        "unhandledPromptBehavior": "dismiss and notify",
+        "webauthn:extension:credBlob": true,
+        "webauthn:extension:largeBlob": true,
+        "webauthn:extension:minPinLength": true,
+        "webauthn:extension:prf": true,
+        "webauthn:virtualAuthenticators": true,
+        "wdio:driverPID": 34346
+      }
+    },
+    "isReactElement": false,
+    "isShadowElement": false
+  }
+}

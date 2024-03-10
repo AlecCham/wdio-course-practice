@@ -1,0 +1,4 @@
+{
+  "script": "browserstack_executor: {\"action\":\"annotate\",\"arguments\":{\"data\":\"Test: Get Started is clicked from home page\",\"level\":\"info\"}}",
+  "args": []
+}

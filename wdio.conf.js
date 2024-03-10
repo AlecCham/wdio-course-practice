@@ -1,7 +1,30 @@
+import allure from 'allure-commandline';
+
+
+// Inside or outside your config definition, depending on your structure
+async function generateAllureReport() {
+    const { exec } = await import('child_process');
+    return new Promise((resolve, reject) => {
+        exec('npx allure generate allure-results --clean', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error generating Allure report: ${error}`);
+                reject(new Error('Could not generate Allure report'));
+            } else {
+                console.log(stdout);
+                console.log("Allure report successfully generated");
+                resolve();
+            }
+        });
+    });
+}
+
+
+
+
 export const config = {
     //
     // ====================
-    // Runner Configuration
+    // Browserstack Configuration
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
@@ -24,10 +47,20 @@ export const config = {
         // ToDo: define location for spec files here
         'test/specs/**/*.js'
     ],
+    suites: {
+        smoke: [
+            'test/specs/**/home.js',
+            'test/specs/**/contact.js'
+            ],
+        component: [
+            'test/specs/**/nav.js'
+        ]
+
+    },
     // Patterns to exclude.
-    exclude: [
-        // 'path/to/excluded/files'
-    ],
+    //exclude: [
+    //    'test/specs/**/contact.js'
+    //],
     //
     // ============
     // Capabilities
@@ -61,7 +94,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'error',
     //
     // Set specific log levels per logger
     // loggers:
@@ -85,8 +118,9 @@ export const config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://practice.automationbro.com',
-    //
+    //baseUrl: 'https://amazon.com',
+    baseUrl: 'https://practice.sdetunicorns.com',
+
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
     //
@@ -124,7 +158,11 @@ export const config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', {
+                    outputDir: 'allure-results',
+                    disableWebdriverStepsReporting: false,
+                    disableWebdriverScreenshotsReporting: false,
+                }]],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -203,8 +241,9 @@ export const config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: async function (test, context) {
+       await browser.setWindowSize(1000, 1000);
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
@@ -227,9 +266,11 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
-
+    afterTest: async function(test, context, { error}) {
+        if (error) {
+            await browser.takeScreenshot();
+        }
+    },
 
     /**
      * Hook that gets executed after the suite has ended
@@ -273,6 +314,11 @@ export const config = {
      */
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
+    onComplete: function() {
+        // Make sure to handle this promise correctly in your context,
+        // as handling async operations in onComplete might require specific adjustments
+        return generateAllureReport().catch(error => console.error(error));
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session

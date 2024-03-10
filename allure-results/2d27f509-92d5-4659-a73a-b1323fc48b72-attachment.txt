@@ -1,0 +1,4 @@
+{
+  "script": "browserstack_executor: {\"action\":\"annotate\",\"arguments\":{\"data\":\"Test: Fill all the inputs fields, submit and assert the success message\",\"level\":\"info\"}}",
+  "args": []
+}
